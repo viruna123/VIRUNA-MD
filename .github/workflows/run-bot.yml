@@ -1,0 +1,26 @@
+name: Viruna-MD Runner
+
+on:
+  workflow_dispatch: # manually run කරන්න
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Bot
+        run: node index.js
+        env:
+          SESSION_ID: ${{ secrets.SESSION_ID }}
+          # ඔයාට තව මොනවා හරි variables තියෙනවා නම් (උදා: MONGODB) ඒවා මෙතනට දාන්න
