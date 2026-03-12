@@ -16,11 +16,14 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          sudo apt-get update && sudo apt-get install -y ffmpeg
 
       - name: Run Bot
         run: |
-          node index.js & # Bot එක background එකේ run කරන්න
-          sleep infinity # Workflow එක එකපාරටම ඉවර වෙන්න නොදී තියාගන්න
+          # Session ID එක පිරිසිදු කරලා දුවනවා
+          CLEAN_SESSION=$(echo "${{ secrets.SESSION_ID }}" | sed "s/['\"]//g")
+          SESSION_ID=$CLEAN_SESSION node index.js
         env:
           SESSION_ID: ${{ secrets.SESSION_ID }}
