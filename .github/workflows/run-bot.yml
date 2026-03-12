@@ -1,12 +1,11 @@
 name: Viruna-MD Runner
 
 on:
-  workflow_dispatch: # manually run කරන්න
+  workflow_dispatch:
 
 jobs:
-  build:
+  run-bot:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -20,7 +19,8 @@ jobs:
         run: npm install
 
       - name: Run Bot
-        run: node index.js
+        run: |
+          node index.js & # Bot එක background එකේ run කරන්න
+          sleep infinity # Workflow එක එකපාරටම ඉවර වෙන්න නොදී තියාගන්න
         env:
           SESSION_ID: ${{ secrets.SESSION_ID }}
-          # ඔයාට තව මොනවා හරි variables තියෙනවා නම් (උදා: MONGODB) ඒවා මෙතනට දාන්න
